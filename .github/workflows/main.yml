@@ -1,21 +1,47 @@
 on: [push]
 
+# Usage with a private Action
 jobs:
-  deploy:
+  hello_world_job:
     runs-on: ubuntu-latest
     name: Vault Warden secrets replacement
     steps:
-      - name: "Secrets replacement"
-        uses: matiuhart/vaultwareden-replace-secrets-action@v28
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: secrets replacement
+        uses: ./
+        id: secret_replace
         with:
           BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
           BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
           BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
           BW_SERVER: ${{ vars.BW_SERVER }}
           FILE_TO_REPLACE: docker-compose.yaml
+      # Use the output from the `hello` step
+      # - name: Get the output time
+      #   run: echo "The time was ${{ steps.hello.outputs.time }}"
 
-      - name: Get the output time
-        run: cat docker-compose.yaml.replaced
+
+
+
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     name: Vault Warden secrets replacement
+#     steps:
+
+      # - name: "Secrets replacement"
+      #   uses: matiuhart/vaultwareden-replace-secrets-action@v28
+      #   with:
+      #     BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
+      #     BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
+      #     BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
+      #     BW_SERVER: ${{ vars.BW_SERVER }}
+      #     FILE_TO_REPLACE: docker-compose.yaml
+
+      # - name: Get the output time
+      #   run: cat docker-compose.yaml.replaced
 
 # jobs:
 #   secrets-replacement:

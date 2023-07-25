@@ -1,6 +1,5 @@
 on: [push]
 
-# Usage with a private Action
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
@@ -10,74 +9,14 @@ jobs:
         uses: actions/checkout@v3
       
       - name: secrets replacement
-        uses: matiuhart/vaultwareden-replace-secrets-action@v0.1
+        uses: matiuhart/vaultwareden-replace-secrets-action@v1
         id: secret_replace
         with:
           BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
           BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
           BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
           BW_SERVER: ${{ vars.BW_SERVER }}
-          FILE_TO_REPLACE: docker-compose.yaml
+          FILE_TO_REPLACE: deploy/docker-compose.yaml
       
       - name: Get the output time
-        run: cat docker-compose.yaml.replaced
-
-
-
-
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     name: Vault Warden secrets replacement
-#     steps:
-
-      # - name: "Secrets replacement"
-      #   uses: matiuhart/vaultwareden-replace-secrets-action@v28
-      #   with:
-      #     BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
-      #     BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
-      #     BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
-      #     BW_SERVER: ${{ vars.BW_SERVER }}
-      #     FILE_TO_REPLACE: docker-compose.yaml
-
-      # - name: Get the output time
-      #   run: cat docker-compose.yaml.replaced
-
-# jobs:
-#   secrets-replacement:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: "Checkout repo"
-#         uses: actions/checkout@v2
-
-#       - name: "Secrets replacement"
-#         run: ./get_secret.sh docker-compose.yaml
-#         env:
-#           BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
-#           BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
-#           BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
-#           BW_SERVER: ${{ vars.BW_SERVER }}
-
-#       - name: "Show secret file"
-#         run: cat docker-compose.yaml.replaced
-
-
-# Usage with a private Action
-# jobs:
-#   hello_world_job:
-#     runs-on: ubuntu-latest
-#     name: A job to say hello
-#     steps:
-#       # To use this repository's private action,
-#       # you must check out the repository
-#       - name: Checkout
-#         uses: actions/checkout@v3
-#       - name: Hello world action step
-#         uses: ./ # Uses an action in the root directory
-#         id: hello
-#         with:
-#           who-to-greet: 'Mona the Octocat'
-#       # Use the output from the `hello` step
-#       - name: Get the output time
-#         run: echo "The time was ${{ steps.hello.outputs.time }}"
+        run: cat deploy/docker-compose.yaml.replaced

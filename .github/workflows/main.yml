@@ -8,8 +8,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      
       - name: secrets replacement
-        uses: ./
+        uses: matiuhart/vaultwareden-replace-secrets-action@v0.1
         id: secret_replace
         with:
           BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
@@ -17,9 +18,9 @@ jobs:
           BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
           BW_SERVER: ${{ vars.BW_SERVER }}
           FILE_TO_REPLACE: docker-compose.yaml
-      # Use the output from the `hello` step
-      # - name: Get the output time
-      #   run: echo "The time was ${{ steps.hello.outputs.time }}"
+      
+      - name: Get the output time
+        run: cat docker-compose.yaml.replaced
 
 
 

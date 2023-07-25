@@ -8,6 +8,7 @@ services:
     environment:
       WORDPRESS_DB_USER: $WORDPRESS_DB_USER
       WORDPRESS_DB_PASSWORD: $WORDPRESS_DB_PASSWORD
+      OTRO_VALOR: $BUCKET_ACCESS_KEY_TEST
       WORDPRESS_DB_NAME: sarasa
       WORDPRESS_DB_HOST: 172.31.3.8
       WORDPRESS_DB_CHARSET: utf8mb4
@@ -16,4 +17,3 @@ services:
         'access-key-id' => '$BUCKET_ACCESS_KEY_ID',
         'secret-access-key' => '$BUCKET_SECRET_ACCESS_KEY',)));
     restart: unless-stopped
- otro test

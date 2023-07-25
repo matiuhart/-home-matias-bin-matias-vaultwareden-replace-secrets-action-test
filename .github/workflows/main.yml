@@ -17,10 +17,9 @@ jobs:
           BW_SERVER: ${{ vars.BW_SERVER }}
           FILES_TO_REPLACE: |- 
             example_template_files/docker-compose1.yaml
-            example_template_files/docker-compose2.yaml
      
-      - name: Get the output time
+      - name: Get the output for docker-compose1 file
         run: cat example_template_files/docker-compose1.yaml.replaced
 
-      - name: Get the output time
-        run: cat example_template_files/docker-compose2.yaml.replaced
+      # - name: Get the output for docker-compose2 file
+      #   run: cat example_template_files/docker-compose2.yaml.replaced
